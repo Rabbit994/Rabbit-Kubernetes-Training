@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loadgen-deploy
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: loadgen
+  template:
+    metadata:
+      labels:
+        app: loadgen
+    spec:
+      containers:
+      - name: loadgen
+        image: {registryname}/loadgen:latest
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        env:
+        - name: MODULE_NAME
+          value: app.name_main
+        - name: email_domain
+          value: example.com
+        - name: base_url
+          valueFrom:
+            secretKeyRef:
+              name: baseurl
+              key: uri
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "32Mi"
+          limits:
+            cpu: "250m"
+            memory: "64Mi"
+      imagePullSecrets:
+        - name: regcred

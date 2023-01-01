@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: date-main-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  labels:
+    name: date-main-ingress
+spec:
+  rules:
+  - host: {hostname}
+    http:
+      paths:
+      - path: /date(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: date-main-service
+            port: 
+              number: 80
