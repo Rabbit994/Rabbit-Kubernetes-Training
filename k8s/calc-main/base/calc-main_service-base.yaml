@@ -20,7 +20,7 @@ spec:
   - host: kuard.micromicroservice.net
     http:
       paths:
-      - path: /$2
+      - path: /
         pathType: Prefix
         backend:
           service:
