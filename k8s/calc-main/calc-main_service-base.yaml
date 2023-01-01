@@ -47,7 +47,7 @@ metadata:
   name: calc-main-deploy
   namespace: rabbit-demo
 spec:
-  replicas: 10
+  replicas: 2
   selector:
     matchLabels:
       app: calc-main
