@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calc-main-deploy
+  namespace: rabbit-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: calc-main
+  template:
+    metadata:
+      labels:
+        app: calc-main
+    spec:
+      containers:
+      - name: calc-main
+        image: gcr.io/kuar-demo/kuard-amd64:blue
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        env:
+        - name: MODULE_NAME
+          value: app.calc_main
+        - name: email_domain
+          value: lp.com
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "64Mi"
+          limits:
+            cpu: "250m"
+            memory: "128Mi"
+        livenessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 30
+          timeoutSeconds: 1
+          periodSeconds: 10
+          failureThreshold: 3
