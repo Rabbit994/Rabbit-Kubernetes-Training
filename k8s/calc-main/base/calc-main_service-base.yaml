@@ -77,7 +77,7 @@ spec:
             memory: "128Mi"
         livenessProbe:
           httpGet:
-            path: /ready
+            path: /healthy
             port: 8080
           initialDelaySeconds: 5
           timeoutSeconds: 1
@@ -85,7 +85,7 @@ spec:
           failureThreshold: 3
         readinessProbe:
           httpGet:
-            path: /healthz
+            path: /ready
             port: 8080
           initialDelaySeconds: 30
           timeoutSeconds: 1
