@@ -9,5 +9,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: "./k8s/calc-main"
+  path: "./k8s/calc-main/dev"
   prune: true
+  postBuild:
+    substitute:
+      cluster_env: "dev"

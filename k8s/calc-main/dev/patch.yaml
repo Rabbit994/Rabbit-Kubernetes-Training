@@ -25,6 +25,8 @@ spec:
           value: app.calc_main
         - name: email_domain
           value: lp.com
+        - name: ENVIRONMENT
+          value: ${cluster_env}
         resources:
           requests:
             cpu: "100m"
