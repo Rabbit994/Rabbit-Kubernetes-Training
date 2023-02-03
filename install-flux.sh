@@ -1,0 +1,2 @@
+# To get Kubectl working, make sure you copy the kubernetes config to ~/.kube/config (Overwrite anything existing)
+flux bootstrap github --owner=Organization --repository=repoName --path=clusters/clusterName
